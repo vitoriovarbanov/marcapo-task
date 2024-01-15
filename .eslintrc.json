@@ -30,8 +30,8 @@
             }
         ],
         "react/prop-types": [0],
-        "react-hooks/rules-of-hooks": "warn",
-        "react-hooks/exhaustive-deps": "warn",
+        //"react-hooks/rules-of-hooks": "warn",
+        //"react-hooks/exhaustive-deps": "warn",
         "arrow-body-style": ["error", "as-needed"],
         "react/jsx-uses-react": "off",
         "react/react-in-jsx-scope": "off",
