@@ -1,8 +1,10 @@
 import styles from './CreateBook.module.scss';
 import BookForm from '../../Forms/BookForm';
+import { observer } from 'mobx-react-lite';
+import store from '../../store/BookStore';
 
-const CreateBook: React.FC = () => {
-    console.log(`FORM`);
+const CreateBook: React.FC = observer(() => {
+    console.log(store.bookList);
 
     return (
         <div className={styles.formWrapper}>
@@ -10,6 +12,6 @@ const CreateBook: React.FC = () => {
             <BookForm />
         </div>
     );
-};
+});
 
 export default CreateBook;

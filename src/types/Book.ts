@@ -1,10 +1,10 @@
-import type { Moment } from 'moment';
+import type { Dayjs } from 'dayjs';
 
 export type Book = {
     id: string;
     name: string;
     author: string;
-    publishingYear?: Moment | null;
+    publishingYear?: Dayjs | null;
     genre?: string;
     numberOfPages?: number | null;
     image?: string;

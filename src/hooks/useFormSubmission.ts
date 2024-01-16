@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import type { Book } from '../types';
+import type { Dayjs } from 'dayjs';
+import bookStore from '../store/BookStore';
 
 interface FormSubmissionHook {
     formFields: Book;
-    setFormField: (field: string, value: string | number | null) => void;
+    setFormField: (field: string, value: string | number | Dayjs | null) => void;
     submitForm: () => void;
 }
 
@@ -19,18 +21,15 @@ export const useFormSubmission = (): FormSubmissionHook => {
         description: '',
     });
 
-    const setFormField = (field: string, value: string | number | null) => {
+    const setFormField = (field: string, value: string | number | Dayjs | null) => {
         setFormFields((prevFields) => ({ ...prevFields, [field]: value }));
     };
-
-    console.log(formFields);
 
     const submitForm = () => {
         const result = { ...formFields };
         // You can perform any additional logic here before submitting
 
-        console.log('Form Submitted:', result);
-        //bookStore.submitForm();
+        bookStore.submitForm(result);
 
         // Add logic to save or update the data, e.g., using MobX store or making an API call
     };

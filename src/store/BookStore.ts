@@ -39,10 +39,10 @@ class BookStore {
         };
     }
 
-    submitForm(): void {
+    submitForm(result): void {
         const newBook: Book = {
             id: uuidv4(), // Assign a unique ID (for simplicity, incrementing length)
-            ...this.bookFormData,
+            ...result,
         };
 
         this.bookList = [...this.bookList, newBook];

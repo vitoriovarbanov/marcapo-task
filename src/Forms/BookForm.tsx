@@ -3,6 +3,7 @@ import { Form, Button, Input, InputNumber, DatePicker, Upload, message } from 'a
 import { UploadOutlined } from '@ant-design/icons';
 import { useFormSubmission } from '../hooks';
 import styles from './BookForm.module.scss';
+import type { Dayjs } from 'dayjs';
 
 const BookForm: React.FC = observer(() => {
     const { formFields, setFormField, submitForm } = useFormSubmission();
@@ -31,6 +32,8 @@ const BookForm: React.FC = observer(() => {
             } else if (info.file.status === 'error') {
                 message.error(`${info.file.name} file upload failed.`);
             }
+
+            setFormField('image', info.fileList);
         },
     };
 
@@ -60,7 +63,11 @@ const BookForm: React.FC = observer(() => {
                 label={<label style={{ color: 'white' }}>Publishing Year</label>}
                 name="publishingYear"
                 rules={[{ required: true, message: 'Please select the publishing year' }]}>
-                <DatePicker picker="year" />
+                <DatePicker
+                    picker="year"
+                    value={formFields.publishingYear as Dayjs | null}
+                    onChange={(value) => setFormField('publishingYear', value)}
+                />
             </Form.Item>
 
             <Form.Item label={<label style={{ color: 'white' }}>Genre</label>} name="genre">
@@ -71,7 +78,11 @@ const BookForm: React.FC = observer(() => {
                 label={<label style={{ color: 'white' }}>Number of Pages</label>}
                 name="numberOfPages"
                 rules={[{ required: true, message: 'Please enter the number of pages' }]}>
-                <InputNumber min={1} />
+                <InputNumber
+                    min={1}
+                    value={formFields.numberOfPages}
+                    onChange={(value) => setFormField('numberOfPages', value)}
+                />
             </Form.Item>
 
             <Form.Item

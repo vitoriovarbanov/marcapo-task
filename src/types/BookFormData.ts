@@ -1,7 +1,9 @@
+import type { Dayjs } from 'dayjs';
+
 export type BookFormData = {
     name: string;
     author: string;
-    publishingYear?: number | null;
+    publishingYear?: Dayjs | null;
     genre?: string;
     numberOfPages?: number | null;
     image?: string;
