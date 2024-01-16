@@ -1,5 +1,6 @@
 import { makeAutoObservable } from 'mobx';
 import type { BookFormData, Book } from '../types';
+import { v4 as uuidv4 } from 'uuid';
 
 class BookStore {
     bookFormData: BookFormData = {
@@ -40,7 +41,7 @@ class BookStore {
 
     submitForm(): void {
         const newBook: Book = {
-            id: this.bookList.length + 1, // Assign a unique ID (for simplicity, incrementing length)
+            id: uuidv4(), // Assign a unique ID (for simplicity, incrementing length)
             ...this.bookFormData,
         };
 
@@ -48,7 +49,7 @@ class BookStore {
         this.resetForm();
     }
 
-    getBookById(bookId: number): Book | undefined {
+    getBookById(bookId: string): Book | undefined {
         return this.bookList.find((book) => book.id === bookId);
     }
 }

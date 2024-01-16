@@ -1,9 +1,9 @@
 //import styles from './JackpotDetails.module.scss';
 
-const CreateBookForm: React.FC = () => {
+const CreateBook: React.FC = () => {
     console.log(`FORM`);
 
     return <div>FORM</div>;
 };
 
-export default CreateBookForm;
+export default CreateBook;
