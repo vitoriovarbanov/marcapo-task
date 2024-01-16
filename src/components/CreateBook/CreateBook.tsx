@@ -1,9 +1,15 @@
-//import styles from './JackpotDetails.module.scss';
+import styles from './CreateBook.module.scss';
+import BookForm from '../../Forms/BookForm';
 
 const CreateBook: React.FC = () => {
     console.log(`FORM`);
 
-    return <div>FORM</div>;
+    return (
+        <div className={styles.formWrapper}>
+            <h3 className={styles.header}>Create New Book</h3>
+            <BookForm />
+        </div>
+    );
 };
 
 export default CreateBook;
