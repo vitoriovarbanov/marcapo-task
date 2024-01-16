@@ -1,18 +1,16 @@
-import styles from './App.module.scss';
+import { lazy, Suspense } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-function App() {
-    return (
-        <div className={styles.testClass}>
-            <header className="App-header">
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </a>
-            </header>
-        </div>
-    );
-}
+const Home = lazy(() => import('./components/Home'));
+
+const App: React.FC = () => (
+    <BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+                <Route path="/" element={<Home />} />
+            </Routes>
+        </Suspense>
+    </BrowserRouter>
+);
 
 export default App;
