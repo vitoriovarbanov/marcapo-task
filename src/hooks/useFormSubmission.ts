@@ -23,6 +23,8 @@ export const useFormSubmission = (): FormSubmissionHook => {
         setFormFields((prevFields) => ({ ...prevFields, [field]: value }));
     };
 
+    console.log(formFields);
+
     const submitForm = () => {
         const result = { ...formFields };
         // You can perform any additional logic here before submitting

@@ -2,6 +2,7 @@ import { observer } from 'mobx-react-lite';
 import { Form, Button, Input, InputNumber, DatePicker, Upload, message } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { useFormSubmission } from '../hooks';
+import styles from './BookForm.module.scss';
 
 const BookForm: React.FC = observer(() => {
     const { formFields, setFormField, submitForm } = useFormSubmission();
@@ -34,40 +35,56 @@ const BookForm: React.FC = observer(() => {
     };
 
     return (
-        <Form form={form} onFinish={onFinish} labelCol={{ span: 6 }} wrapperCol={{ span: 16 }}>
-            <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please enter the name' }]}>
+        <Form
+            form={form}
+            onFinish={onFinish}
+            labelCol={{ span: 6 }}
+            wrapperCol={{ span: 16 }}
+            className={styles.bookForm}>
+            <Form.Item
+                label={<label style={{ color: 'white' }}>Name</label>}
+                name="name"
+                rules={[{ required: true, message: 'Please enter the name' }]}
+                className={styles.label}>
                 <Input value={formFields.name} onChange={(e) => setFormField('name', e.target.value)} />
             </Form.Item>
 
-            <Form.Item label="Author" name="author" rules={[{ required: true, message: 'Please enter the author' }]}>
+            <Form.Item
+                label={<label style={{ color: 'white' }}>Author</label>}
+                name="author"
+                rules={[{ required: true, message: 'Please enter the author' }]}>
                 <Input value={formFields.author} onChange={(e) => setFormField('author', e.target.value)} />
             </Form.Item>
 
             <Form.Item
-                label="Publishing Year"
+                label={<label style={{ color: 'white' }}>Publishing Year</label>}
                 name="publishingYear"
                 rules={[{ required: true, message: 'Please select the publishing year' }]}>
-                <DatePicker />
+                <DatePicker picker="year" />
             </Form.Item>
 
-            <Form.Item label="Genre" name="genre">
+            <Form.Item label={<label style={{ color: 'white' }}>Genre</label>} name="genre">
                 <Input value={formFields.genre} onChange={(e) => setFormField('genre', e.target.value)} />
             </Form.Item>
 
             <Form.Item
-                label="Number of Pages"
+                label={<label style={{ color: 'white' }}>Number of Pages</label>}
                 name="numberOfPages"
                 rules={[{ required: true, message: 'Please enter the number of pages' }]}>
                 <InputNumber min={1} />
             </Form.Item>
 
-            <Form.Item label="Image" name="image" valuePropName="fileList" getValueFromEvent={normFile}>
+            <Form.Item
+                label={<label style={{ color: 'white' }}>Image</label>}
+                name="image"
+                valuePropName="fileList"
+                getValueFromEvent={normFile}>
                 <Upload {...uploadProps} listType="picture">
                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                 </Upload>
             </Form.Item>
 
-            <Form.Item label="Description" name="description">
+            <Form.Item label={<label style={{ color: 'white' }}>Description</label>} name="description">
                 <Input.TextArea
                     value={formFields.description}
                     onChange={(e) => setFormField('description', e.target.value)}
