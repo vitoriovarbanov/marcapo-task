@@ -1,0 +1,40 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:prettier/recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "jest": true,
+        "es6": true
+    },
+    "rules": {
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/ban-types": "off",
+        "@typescript-eslint/consistent-type-imports": "error",
+        "react/display-name": "off",
+        "react/self-closing-comp": [
+            "error",
+            {
+                "component": true,
+                "html": true
+            }
+        ],
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto"
+            }
+        ],
+        "react/prop-types": [0],
+        //"react-hooks/rules-of-hooks": "warn",
+        //"react-hooks/exhaustive-deps": "warn",
+        "arrow-body-style": ["error", "as-needed"],
+        "react/jsx-uses-react": "off",
+        "react/react-in-jsx-scope": "off",
+        "no-constant-condition": "off"
+    }
+}
