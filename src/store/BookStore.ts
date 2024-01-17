@@ -1,6 +1,5 @@
 import { makeAutoObservable } from 'mobx';
 import type { BookFormData, Book } from '../types';
-import { v4 as uuidv4 } from 'uuid';
 
 class BookStore {
     bookFormData: BookFormData = {
@@ -17,6 +16,12 @@ class BookStore {
 
     constructor() {
         makeAutoObservable(this);
+
+        const storedBookList = localStorage.getItem('bookList');
+
+        if (storedBookList) {
+            this.bookList = JSON.parse(storedBookList);
+        }
     }
 
     setImageUrl(url: string): void {
@@ -39,14 +44,16 @@ class BookStore {
         };
     }
 
-    submitForm(result): void {
+    submitForm(result: Book): void {
         const newBook: Book = {
-            id: uuidv4(), // Assign a unique ID (for simplicity, incrementing length)
             ...result,
+            id: this.bookList.length.toString(),
         };
 
         this.bookList = [...this.bookList, newBook];
         this.resetForm();
+
+        localStorage.setItem('bookList', JSON.stringify(this.bookList));
     }
 
     getBookById(bookId: string): Book | undefined {

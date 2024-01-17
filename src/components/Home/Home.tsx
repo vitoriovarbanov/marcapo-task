@@ -26,6 +26,10 @@ const columns = [
         title: 'Publishing Year',
         dataIndex: 'publishingYear',
         key: 'publishingYear',
+        render: (publishingYear: string) => {
+            const dateObject = new Date(publishingYear);
+            return dateObject.getFullYear();
+        },
     },
     {
         title: 'Genre',
@@ -58,9 +62,7 @@ const columns = [
 const Home: React.FC = observer(() => {
     const navigate = useNavigate();
 
-    const data = bookStore.bookList.map((book: Book) => ({ ...book, key: book.id }));
-
-    console.log(data);
+    const data = bookStore.bookList?.map((book: Book) => ({ ...book, key: book.id }));
 
     const handleAddNewBook = (): void => {
         navigate(paths.createBook);
@@ -69,10 +71,13 @@ const Home: React.FC = observer(() => {
     return (
         <div className={styles.homeContainer}>
             <h2 className={styles.header}>Welcome to Marcapo Library</h2>
-            <div className={styles.tableContainer}>
-                <Table columns={columns} dataSource={data} scroll={{ x: 'max-content' }} />
-            </div>
-            <p className={styles.text}>There are no available books currently...</p>
+            {!data.length ? (
+                <p className={styles.text}>There are no available books currently...</p>
+            ) : (
+                <div className={styles.tableContainer}>
+                    <Table columns={columns} dataSource={data} scroll={{ x: 'max-content' }} />
+                </div>
+            )}
             <Button type="primary" size="large" shape="round" onClick={handleAddNewBook}>
                 Add new book
             </Button>
