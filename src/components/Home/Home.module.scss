@@ -7,6 +7,21 @@
     flex-direction: column;
 }
 
+.tableContainer {
+    padding: 0 32px;
+    overflow-x: auto;
+    margin-top: 16px;
+    max-width: 100%;
+
+    .ant-table {
+        width: 100%;
+
+        .ant-table-container {
+            overflow-x: auto;
+        }
+    }
+}
+
 .header {
     text-align: center;
     margin-bottom: 16px;

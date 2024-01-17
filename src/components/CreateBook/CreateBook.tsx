@@ -1,15 +1,20 @@
 import styles from './CreateBook.module.scss';
 import BookForm from '../../Forms/BookForm';
 import { observer } from 'mobx-react-lite';
-import store from '../../store/BookStore';
+import { useNavigate } from 'react-router-dom';
+import { paths } from '../../paths';
 
 const CreateBook: React.FC = observer(() => {
-    console.log(store.bookList);
+    const navigate = useNavigate();
+
+    const onAddNewBookNavigate = (): void => {
+        navigate(paths.home);
+    };
 
     return (
         <div className={styles.formWrapper}>
             <h3 className={styles.header}>Create New Book</h3>
-            <BookForm />
+            <BookForm onAddNewBookNavigate={onAddNewBookNavigate} />
         </div>
     );
 });

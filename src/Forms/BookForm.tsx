@@ -4,13 +4,15 @@ import { UploadOutlined } from '@ant-design/icons';
 import { useFormSubmission } from '../hooks';
 import styles from './BookForm.module.scss';
 import type { Dayjs } from 'dayjs';
+import type { BookFormProps } from './BookForm.types';
 
-const BookForm: React.FC = observer(() => {
+const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) => {
     const { formFields, setFormField, submitForm } = useFormSubmission();
     const [form] = Form.useForm();
 
     const onFinish = () => {
         submitForm();
+        onAddNewBookNavigate();
     };
 
     const normFile = (e) => {
