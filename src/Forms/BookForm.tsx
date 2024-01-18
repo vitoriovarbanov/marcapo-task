@@ -6,12 +6,17 @@ import styles from './BookForm.module.scss';
 import type { Dayjs } from 'dayjs';
 import type { BookFormProps } from './BookForm.types';
 
-const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) => {
-    const { formFields, setFormField, submitForm } = useFormSubmission();
+const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate, bookData }) => {
+    const { formFields, setFormField, handleCreate, handleEdit } = useFormSubmission(bookData);
     const [form] = Form.useForm();
 
     const onFinish = () => {
-        submitForm();
+        if (bookData) {
+            handleEdit();
+        } else {
+            handleCreate();
+        }
+
         onAddNewBookNavigate();
     };
 
@@ -51,14 +56,22 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) =>
                 name="name"
                 rules={[{ required: true, message: 'Please enter the name' }]}
                 className={styles.label}>
-                <Input value={formFields.name} onChange={(e) => setFormField('name', e.target.value)} />
+                <Input
+                    defaultValue={formFields.name}
+                    value={formFields.name}
+                    onChange={(e) => setFormField('name', e.target.value)}
+                />
             </Form.Item>
 
             <Form.Item
                 label={<label style={{ color: 'white' }}>Author</label>}
                 name="author"
                 rules={[{ required: true, message: 'Please enter the author' }]}>
-                <Input value={formFields.author} onChange={(e) => setFormField('author', e.target.value)} />
+                <Input
+                    defaultValue={formFields.author}
+                    value={formFields.author}
+                    onChange={(e) => setFormField('author', e.target.value)}
+                />
             </Form.Item>
 
             <Form.Item
@@ -67,13 +80,18 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) =>
                 rules={[{ required: true, message: 'Please select the publishing year' }]}>
                 <DatePicker
                     picker="year"
+                    //defaultValue={formFields.publishingYear}
                     value={formFields.publishingYear as Dayjs | null}
                     onChange={(value) => setFormField('publishingYear', value)}
                 />
             </Form.Item>
 
             <Form.Item label={<label style={{ color: 'white' }}>Genre</label>} name="genre">
-                <Input value={formFields.genre} onChange={(e) => setFormField('genre', e.target.value)} />
+                <Input
+                    value={formFields.genre}
+                    defaultValue={formFields.genre}
+                    onChange={(e) => setFormField('genre', e.target.value)}
+                />
             </Form.Item>
 
             <Form.Item
@@ -82,6 +100,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) =>
                 rules={[{ required: true, message: 'Please enter the number of pages' }]}>
                 <InputNumber
                     min={1}
+                    defaultValue={formFields.numberOfPages}
                     value={formFields.numberOfPages}
                     onChange={(value) => setFormField('numberOfPages', value)}
                 />
@@ -99,6 +118,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) =>
 
             <Form.Item label={<label style={{ color: 'white' }}>Description</label>} name="description">
                 <Input.TextArea
+                    defaultValue={formFields.description}
                     value={formFields.description}
                     onChange={(e) => setFormField('description', e.target.value)}
                 />
@@ -106,7 +126,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate }) =>
 
             <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
                 <Button type="primary" htmlType="submit">
-                    Submit
+                    {bookData ? 'Edit' : 'Submit'}
                 </Button>
             </Form.Item>
         </Form>

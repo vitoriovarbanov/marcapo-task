@@ -55,7 +55,7 @@ const columns = [
     {
         title: 'Action',
         key: 'action',
-        render: (text: string, record: Book) => <Link to={`/book-details/${record.id}`}>Details</Link>,
+        render: (text: string, record: Book) => <Link to={`/edit-book/${record.id}`}>Details</Link>,
     },
 ];
 

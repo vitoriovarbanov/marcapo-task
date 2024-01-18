@@ -1,3 +1,6 @@
+import type { Book } from '../types';
+
 export type BookFormProps = {
-    onAddNewBookNavigate: () => void;
+    onAddNewBookNavigate?: () => void;
+    bookData?: Book;
 };
