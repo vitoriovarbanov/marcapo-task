@@ -6,8 +6,8 @@ import styles from './BookForm.module.scss';
 import type { Dayjs } from 'dayjs';
 import type { BookFormProps } from './BookForm.types';
 
-const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate, bookData }) => {
-    const { formFields, setFormField, handleCreate, handleEdit } = useFormSubmission(bookData);
+const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) => {
+    const { formFields, setFormField, handleCreate, handleEdit, handleDelete } = useFormSubmission(bookData);
     const [form] = Form.useForm();
 
     const onFinish = () => {
@@ -17,7 +17,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate, book
             handleCreate();
         }
 
-        onAddNewBookNavigate();
+        onNavigate();
     };
 
     const normFile = (e) => {
@@ -128,6 +128,18 @@ const BookForm: React.FC<BookFormProps> = observer(({ onAddNewBookNavigate, book
                 <Button type="primary" htmlType="submit">
                     {bookData ? 'Edit' : 'Submit'}
                 </Button>
+                {bookData && (
+                    <Button
+                        type="primary"
+                        danger
+                        onClick={() => {
+                            handleDelete(bookData.id);
+                            onNavigate();
+                        }}
+                        style={{ marginLeft: 8 }}>
+                        Delete
+                    </Button>
+                )}
             </Form.Item>
         </Form>
     );

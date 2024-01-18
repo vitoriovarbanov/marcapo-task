@@ -9,6 +9,7 @@ interface FormSubmissionHook {
     setFormField: (field: string, value: string | number | Dayjs | null) => void;
     handleCreate: () => void;
     handleEdit: () => void;
+    handleDelete: (id: string) => void;
 }
 
 export const useFormSubmission = (bookData?: Book): FormSubmissionHook => {
@@ -49,10 +50,16 @@ export const useFormSubmission = (bookData?: Book): FormSubmissionHook => {
         // Add logic to save or update the data, e.g., using MobX store or making an API call
     };
 
+    const handleDelete = (id: string): void => {
+        bookStore.deleteBook(id);
+        message.success('Book deleted successfully!');
+    };
+
     return {
         formFields,
         setFormField,
         handleCreate,
         handleEdit,
+        handleDelete,
     };
 };

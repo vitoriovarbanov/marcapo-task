@@ -7,14 +7,14 @@ import { paths } from '../../paths';
 const CreateBook: React.FC = observer(() => {
     const navigate = useNavigate();
 
-    const onAddNewBookNavigate = (): void => {
+    const onNavigate = (): void => {
         navigate(paths.home);
     };
 
     return (
         <div className={styles.formWrapper}>
             <h3 className={styles.header}>Create New Book</h3>
-            <BookForm onAddNewBookNavigate={onAddNewBookNavigate} />
+            <BookForm onNavigate={onNavigate} />
         </div>
     );
 });

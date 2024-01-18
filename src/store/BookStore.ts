@@ -47,11 +47,6 @@ class BookStore {
 
             // Remove the book from local storage
             this.deleteBookFromLocalStorage(bookId);
-
-            // You can add any additional logic or triggers here
-
-            // Notify MobX that the store has been updated
-            makeAutoObservable(this);
         }
     }
 
