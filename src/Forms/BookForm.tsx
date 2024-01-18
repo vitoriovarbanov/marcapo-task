@@ -29,7 +29,7 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
 
     const uploadProps = {
         name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76', // replace with your upload URL
+        action: `http://localhost:3001/api/upload`,
         onChange(info) {
             if (info.file.status !== 'uploading') {
                 console.log(info.file, info.fileList);
@@ -125,12 +125,13 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
             </Form.Item>
 
             <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" role="button">
                     {bookData ? 'Edit' : 'Submit'}
                 </Button>
                 {bookData && (
                     <Button
                         type="primary"
+                        role="button"
                         danger
                         onClick={() => {
                             handleDelete(bookData.id);

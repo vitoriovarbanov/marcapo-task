@@ -34,20 +34,18 @@ export const useFormSubmission = (bookData?: Book): FormSubmissionHook => {
         setFormFields((prevFields) => ({ ...prevFields, [field]: value }));
     };
 
+    const handleCreate = () => {
+        const result = { ...formFields };
+        bookStore.submitForm(result);
+
+        message.success('Book created successfully!');
+    };
+
     const handleEdit = (): void => {
         const updatedBook = { ...formFields };
         // Perform validation or additional logic if needed before saving
         bookStore.updateBook(bookData.id, updatedBook);
         message.success('Book details updated successfully!');
-    };
-
-    const handleCreate = () => {
-        const result = { ...formFields };
-        // You can perform any additional logic here before submitting
-
-        bookStore.submitForm(result);
-
-        // Add logic to save or update the data, e.g., using MobX store or making an API call
     };
 
     const handleDelete = (id: string): void => {

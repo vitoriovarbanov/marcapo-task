@@ -39,15 +39,8 @@ class BookStore {
     }
 
     deleteBook(bookId: string): void {
-        const index = this.bookList.findIndex((book) => book.id === bookId);
-
-        if (index !== -1) {
-            // Remove the book from the store
-            this.bookList.splice(index, 1);
-
-            // Remove the book from local storage
-            this.deleteBookFromLocalStorage(bookId);
-        }
+        this.bookList = this.bookList.filter((book) => book.id !== bookId);
+        this.deleteBookFromLocalStorage(bookId);
     }
 
     deleteBookFromLocalStorage(bookId: string): void {
