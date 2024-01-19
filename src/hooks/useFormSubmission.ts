@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
-import type { Book } from '../types';
+import type { Book, UploadFileList } from '../types';
 import type { Dayjs } from 'dayjs';
 import bookStore from '../store/BookStore';
 import { message } from 'antd';
-
 interface FormSubmissionHook {
     formFields: Book;
-    setFormField: (field: string, value: string | number | Dayjs | null) => void;
+    setFormField: (field: string, value: string | number | Dayjs | null | UploadFileList) => void;
     handleCreate: () => void;
     handleEdit: () => void;
     handleDelete: (id: string) => void;
@@ -21,7 +20,7 @@ export const useFormSubmission = (bookData?: Book): FormSubmissionHook => {
             publishingYear: null,
             genre: '',
             numberOfPages: null,
-            image: '',
+            image: [],
             description: '',
         }
     );

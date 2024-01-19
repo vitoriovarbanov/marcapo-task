@@ -1,5 +1,13 @@
 import type { Dayjs } from 'dayjs';
 
+interface ImageFile {
+    uid: string;
+    name: string;
+    status: string;
+    url?: string;
+    originFileObj?: File;
+}
+
 export type Book = {
     id: string;
     name: string;
@@ -7,6 +15,6 @@ export type Book = {
     publishingYear?: Dayjs | null;
     genre?: string;
     numberOfPages?: number | null;
-    image?: string;
+    image?: ImageFile[];
     description?: string;
 };

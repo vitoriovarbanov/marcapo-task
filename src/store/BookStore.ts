@@ -8,7 +8,7 @@ class BookStore {
         publishingYear: null,
         genre: '',
         numberOfPages: null,
-        image: '',
+        image: [],
         description: '',
     };
 
@@ -64,7 +64,7 @@ class BookStore {
     }
 
     setImageUrl(url: string): void {
-        this.bookFormData.image = url;
+        this.bookFormData.image[0].url = url;
     }
 
     setFormField(field: string, value: string | number | null): void {
@@ -78,7 +78,7 @@ class BookStore {
             publishingYear: null,
             genre: '',
             numberOfPages: null,
-            image: '',
+            image: [],
             description: '',
         };
     }

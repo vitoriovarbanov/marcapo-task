@@ -67,6 +67,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const fs = require('fs');
+const path = require('path');
 
 const app = express();
 const PORT = 3001;
@@ -82,13 +83,18 @@ app.post('/api/upload', (req, res) => {
     const imageFile = req.files.file;
     const base64Data = imageFile.data.toString('base64');
 
+    // Generate a unique filename based on the current timestamp
+    const timestamp = Date.now();
+    const filename = `imageData_${timestamp}.json`;
+
     // Save the image data in JSON format
     const jsonData = {
         image: `data:${imageFile.mimetype};base64,${base64Data}`,
     };
 
     // Save jsonData to a JSON file
-    fs.writeFileSync('imageData.json', JSON.stringify(jsonData));
+    const filePath = path.join(__dirname, filename);
+    fs.writeFileSync(filePath, JSON.stringify(jsonData));
 
     res.send('File uploaded and data saved!');
 });
