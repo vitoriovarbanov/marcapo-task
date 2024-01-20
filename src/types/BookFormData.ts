@@ -1,12 +1,5 @@
 import type { Dayjs } from 'dayjs';
-
-interface ImageFile {
-    uid: string;
-    name: string;
-    status: string;
-    url?: string;
-    originFileObj?: File;
-}
+import type { ImageFile } from './FileUpload';
 
 export type BookFormData = {
     name: string;

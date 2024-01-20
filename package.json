@@ -46,6 +46,12 @@
       "react-app/jest"
     ]
   },
+  "browser": {
+    "@utils/*": "./src/utils/*",
+    "@components/*": "./src/components/*",
+    "@hooks/*": "./src/hooks/*",
+    "@app/*": "./src/*"
+  },
   "browserslist": {
     "production": [
       ">0.2%",

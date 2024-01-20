@@ -6,10 +6,23 @@ import styles from './BookForm.module.scss';
 import type { Dayjs } from 'dayjs';
 import type { BookFormProps } from './BookForm.types';
 import { imageUploadUtil } from '../utils';
+import { useEffect } from 'react';
+import dayjs from 'dayjs';
 
 const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) => {
     const { formFields, setFormField, handleCreate, handleEdit, handleDelete } = useFormSubmission(bookData);
     const [form] = Form.useForm();
+
+    useEffect(() => {
+        if (bookData) {
+            const date_fields = ['publishingYear'];
+            for (const field of date_fields) {
+                bookData[field] = bookData[field] ? dayjs(bookData[field]) : null;
+            }
+
+            form.setFieldsValue(bookData);
+        }
+    }, [bookData, form]);
 
     const onFinish = async () => {
         imageUploadUtil(formFields, setFormField);
@@ -25,13 +38,30 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
 
     const normFile = (e) => {
         if (Array.isArray(e)) {
-            return e;
+            // Only take the first file if multiple files are selected
+            const fileList = e.slice(0, 1);
+            return fileList;
         }
         return e && e.fileList;
     };
 
     const uploadProps = {
         name: 'file',
+        fileList: formFields.image,
+        beforeUpload: (file: File) => {
+            if (formFields.image && formFields.image.length > 0) {
+                // If an image is already present, prevent adding more
+                return false;
+            }
+
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+                const thumbUrl = reader.result as string;
+                setFormField('thumbUrl', thumbUrl);
+            };
+            return false;
+        },
         onChange(info) {
             setFormField('image', info.fileList);
         },
@@ -49,22 +79,14 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
                 name="name"
                 rules={[{ required: true, message: 'Please enter the name' }]}
                 className={styles.label}>
-                <Input
-                    defaultValue={formFields.name}
-                    value={formFields.name}
-                    onChange={(e) => setFormField('name', e.target.value)}
-                />
+                <Input value={formFields.name} onChange={(e) => setFormField('name', e.target.value)} />
             </Form.Item>
 
             <Form.Item
                 label={<label style={{ color: 'white' }}>Author</label>}
                 name="author"
                 rules={[{ required: true, message: 'Please enter the author' }]}>
-                <Input
-                    defaultValue={formFields.author}
-                    value={formFields.author}
-                    onChange={(e) => setFormField('author', e.target.value)}
-                />
+                <Input value={formFields.author} onChange={(e) => setFormField('author', e.target.value)} />
             </Form.Item>
 
             <Form.Item
@@ -73,18 +95,13 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
                 rules={[{ required: true, message: 'Please select the publishing year' }]}>
                 <DatePicker
                     picker="year"
-                    //defaultValue={formFields.publishingYear}
                     value={formFields.publishingYear as Dayjs | null}
                     onChange={(value) => setFormField('publishingYear', value)}
                 />
             </Form.Item>
 
             <Form.Item label={<label style={{ color: 'white' }}>Genre</label>} name="genre">
-                <Input
-                    value={formFields.genre}
-                    defaultValue={formFields.genre}
-                    onChange={(e) => setFormField('genre', e.target.value)}
-                />
+                <Input value={formFields.genre} onChange={(e) => setFormField('genre', e.target.value)} />
             </Form.Item>
 
             <Form.Item
@@ -93,7 +110,6 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
                 rules={[{ required: true, message: 'Please enter the number of pages' }]}>
                 <InputNumber
                     min={1}
-                    defaultValue={formFields.numberOfPages}
                     value={formFields.numberOfPages}
                     onChange={(value) => setFormField('numberOfPages', value)}
                 />
@@ -104,14 +120,13 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
                 name="image"
                 valuePropName="fileList"
                 getValueFromEvent={normFile}>
-                <Upload {...uploadProps} listType="picture">
+                <Upload {...uploadProps} listType="picture" maxCount={1}>
                     <Button icon={<UploadOutlined />}>Click to upload</Button>
                 </Upload>
             </Form.Item>
 
             <Form.Item label={<label style={{ color: 'white' }}>Description</label>} name="description">
                 <Input.TextArea
-                    defaultValue={formFields.description}
                     value={formFields.description}
                     onChange={(e) => setFormField('description', e.target.value)}
                 />

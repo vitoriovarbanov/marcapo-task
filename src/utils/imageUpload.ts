@@ -1,10 +1,10 @@
-import type { Book, UploadFileList } from '../types';
+import type { Book, ImageFile } from '../types';
 import { message } from 'antd';
 import type { Dayjs } from 'dayjs';
 
 export const imageUploadUtil = async (
     formFields: Book,
-    setFormField: (field: string, value: string | number | Dayjs | null | UploadFileList) => void
+    setFormField: (field: string, value: string | number | Dayjs | null | ImageFile) => void
 ) => {
     if (formFields.image && formFields.image.length > 0) {
         const formData = new FormData();
@@ -33,6 +33,6 @@ export const imageUploadUtil = async (
             return; // Stop further processing if image upload fails
         }
 
-        setFormField('image', []);
+        setFormField('image', null);
     }
 };

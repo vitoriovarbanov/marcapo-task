@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import type { Book, UploadFileList } from '../types';
+import type { Book, ImageFile } from '../types';
 import type { Dayjs } from 'dayjs';
 import bookStore from '../store/BookStore';
 import { message } from 'antd';
 interface FormSubmissionHook {
     formFields: Book;
-    setFormField: (field: string, value: string | number | Dayjs | null | UploadFileList) => void;
+    setFormField: (field: string, value: string | number | Dayjs | null | ImageFile) => void;
     handleCreate: () => void;
     handleEdit: () => void;
     handleDelete: (id: string) => void;

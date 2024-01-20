@@ -28,13 +28,9 @@ class BookStore {
         const index = this.bookList.findIndex((book) => book.id === bookId);
 
         if (index !== -1) {
-            // Update the book in the store
             this.bookList[index] = { ...this.bookList[index], ...updatedBook };
 
-            // Update the book in local storage
             this.updateLocalStorage();
-
-            // You can add any additional logic or triggers here
         }
     }
 
@@ -46,20 +42,15 @@ class BookStore {
     deleteBookFromLocalStorage(bookId: string): void {
         const storedBooks = JSON.parse(localStorage.getItem('bookList') || '[]') as Book[];
 
-        // Find the index of the book in local storage
         const index = storedBooks.findIndex((book) => book.id === bookId);
 
         if (index !== -1) {
-            // Remove the book from local storage
             storedBooks.splice(index, 1);
-
-            // Update local storage with the modified book list
             localStorage.setItem('bookList', JSON.stringify(storedBooks));
         }
     }
 
     private updateLocalStorage(): void {
-        // Update the entire bookList in local storage
         localStorage.setItem('bookList', JSON.stringify(this.bookList));
     }
 
