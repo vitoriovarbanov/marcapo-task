@@ -1,8 +1,6 @@
-// Navigation.tsx
-import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Anchor } from 'antd';
-import { paths } from '../../paths';
+import { paths } from '@app/paths';
 
 const Navigation: React.FC = () => {
     const location = useLocation();
