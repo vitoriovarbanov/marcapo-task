@@ -1,11 +1,10 @@
 import { observer } from 'mobx-react-lite';
 import { Form, Button, Input, InputNumber, DatePicker, Upload } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { useFormSubmission } from '../hooks';
+import { useFormSubmission } from '@app/hooks';
 import styles from './BookForm.module.scss';
 import type { Dayjs } from 'dayjs';
 import type { BookFormProps } from './BookForm.types';
-import { imageUploadUtil } from '../utils';
 import { useEffect } from 'react';
 import dayjs from 'dayjs';
 
@@ -25,8 +24,6 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
     }, [bookData, form]);
 
     const onFinish = async () => {
-        imageUploadUtil(formFields, setFormField);
-
         if (bookData) {
             handleEdit();
         } else {
@@ -38,7 +35,6 @@ const BookForm: React.FC<BookFormProps> = observer(({ onNavigate, bookData }) =>
 
     const normFile = (e) => {
         if (Array.isArray(e)) {
-            // Only take the first file if multiple files are selected
             const fileList = e.slice(0, 1);
             return fileList;
         }

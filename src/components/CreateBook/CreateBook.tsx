@@ -1,10 +1,9 @@
 import styles from './CreateBook.module.scss';
 import BookForm from '../../Forms/BookForm';
-import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
-import { paths } from '../../paths';
+import { paths } from '@app/paths';
 
-const CreateBook: React.FC = observer(() => {
+const CreateBook: React.FC = () => {
     const navigate = useNavigate();
 
     const onNavigate = (): void => {
@@ -17,6 +16,6 @@ const CreateBook: React.FC = observer(() => {
             <BookForm onNavigate={onNavigate} />
         </div>
     );
-});
+};
 
 export default CreateBook;

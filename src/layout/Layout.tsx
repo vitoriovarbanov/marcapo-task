@@ -1,10 +1,10 @@
 import Navigation from '@app/components/Navigation';
 
-interface Props {
+interface LayoutProps {
     children: React.ReactNode;
 }
 
-const Layout: React.FC<Props> = ({ children }) => (
+const Layout: React.FC<LayoutProps> = ({ children }) => (
     <div>
         <Navigation />
         <main>{children}</main>

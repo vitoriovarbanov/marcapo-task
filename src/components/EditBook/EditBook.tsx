@@ -1,10 +1,9 @@
-import React from 'react';
 import styles from './EditBook.module.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import { observer } from 'mobx-react-lite';
 import bookStore from '../../store';
 import BookForm from '../../Forms';
-import { paths } from '../../paths';
+import { paths } from '@app/paths';
 
 const EditBook: React.FC = observer(() => {
     const { id } = useParams();

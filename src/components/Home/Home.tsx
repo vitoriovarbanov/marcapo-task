@@ -1,13 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import styles from './Home.module.scss';
 import { Button } from 'antd';
-import { paths } from '../../paths';
-import type { Book } from '../../types';
+import { paths } from '@app/paths';
+import type { Book } from '@app/types';
 import bookStore from '../../store';
-import { observer } from 'mobx-react-lite';
 import TableComponent from '../Table';
 
-const Home: React.FC = observer(() => {
+const Home: React.FC = () => {
     const navigate = useNavigate();
 
     const data = bookStore.bookList?.map((book: Book) => ({ ...book, key: book.id }));
@@ -31,6 +30,6 @@ const Home: React.FC = observer(() => {
             </Button>
         </div>
     );
-});
+};
 
 export default Home;
