@@ -1,4 +1,4 @@
-# Marcopo Library Task
+# Marcapo Library Task
 ## Project startup
 
 ## 1. Installing dependencies
