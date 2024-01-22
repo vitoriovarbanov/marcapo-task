@@ -1,8 +1,13 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const dotEnv = require('dotenv').config();
+
+if (dotEnv && dotEnv.parsed) {
+    console.table(dotEnv.parsed);
+}
 
 module.exports = {
-    mode: 'development',
+    mode: process.env.NODE_ENV,
     entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'public'),
@@ -11,6 +16,12 @@ module.exports = {
     },
     resolve: {
         extensions: ['.tsx', '.ts', '.js', '.jsx'],
+        alias: {
+            '@utils': path.resolve(__dirname, 'src/utils'),
+            '@components': path.resolve(__dirname, 'src/components'),
+            '@hooks': path.resolve(__dirname, 'src/hooks'),
+            '@app': path.resolve(__dirname, 'src'),
+        },
     },
     module: {
         rules: [
@@ -54,9 +65,12 @@ module.exports = {
     devServer: {
         static: path.join(__dirname, 'public'),
         compress: true,
-        port: 3000,
+        port: process.env.PORT,
         hot: true,
         open: true,
         historyApiFallback: true,
+        proxy: {
+            '/api': 'http://localhost:3001',
+        },
     },
 };
