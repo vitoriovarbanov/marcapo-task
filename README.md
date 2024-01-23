@@ -11,3 +11,9 @@ npm install
 ```shell script
 npm start
 ```
+
+## About project
+```shell script
+node version v16.13.0
+npm version v8.1.0
+```
